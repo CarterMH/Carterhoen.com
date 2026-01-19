@@ -6,10 +6,95 @@
   <title>Carter Hoen</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <canvas id="tech-bg"></canvas>
-  <img id="center-img" src="image.png" alt="Center PNG">
+  
+  <nav class="navbar">
+    <div class="nav-content">
+      <div class="logo">CH</div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#passions">Passions</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <section class="hero" id="about">
+      <div class="hero-content">
+        <div class="headshot-container">
+          <div class="headshot-wrapper">
+            <img src="cheadshot.png" alt="Carter Hoen" class="headshot">
+            <div class="headshot-glow"></div>
+          </div>
+        </div>
+        <div class="hero-text">
+          <h1 class="name-title">
+            <span class="name-line">Carter</span>
+            <span class="name-line">Hoen</span>
+          </h1>
+          <p class="tagline">Professional • Aviator • Innovator</p>
+          <div class="hero-description">
+            <p>Building excellence in retail operations while pursuing the skies. Currently working towards my Private Pilot License, combining ground-level expertise with high-altitude aspirations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="experience-section" id="experience">
+      <div class="section-container">
+        <h2 class="section-title">
+          <span class="title-number">01</span>
+          <span class="title-text">Professional Experience</span>
+        </h2>
+        <div class="experience-card">
+          <div class="card-icon">🚗</div>
+          <div class="card-content">
+            <h3>AutoZone</h3>
+            <p class="card-role">Team Member</p>
+            <p class="card-description">Delivering exceptional customer service and automotive expertise. Specializing in parts identification, technical support, and ensuring customer satisfaction in a fast-paced retail environment.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="passions-section" id="passions">
+      <div class="section-container">
+        <h2 class="section-title">
+          <span class="title-number">02</span>
+          <span class="title-text">Passions & Pursuits</span>
+        </h2>
+        <div class="passions-grid">
+          <div class="passion-card">
+            <div class="passion-icon">✈️</div>
+            <h3>Aviation</h3>
+            <p>Currently working towards my <strong>Private Pilot License (PPL)</strong>. Passionate about aviation, flight training, and the freedom of the skies. Every flight is a step closer to achieving my certification.</p>
+            <div class="passion-status">
+              <span class="status-badge">In Progress</span>
+            </div>
+          </div>
+          <div class="passion-card">
+            <div class="passion-icon">🔧</div>
+            <h3>Automotive Excellence</h3>
+            <p>Deep knowledge of automotive systems and parts. Helping customers find solutions and keeping vehicles running smoothly. Expertise in diagnostics, parts compatibility, and technical problem-solving.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <p>&copy; 2024 Carter Hoen. All rights reserved.</p>
+        <p class="footer-tagline">Ground operations. Sky aspirations.</p>
+      </div>
+    </footer>
+  </main>
+
   <script src="script.js"></script>
 </body>
 </html>
