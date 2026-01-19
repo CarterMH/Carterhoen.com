@@ -47,7 +47,8 @@ body {
   height: 100vh;
   display: block;
   z-index: 0;
-  opacity: 0.4;
+  opacity: 0.6;
+  cursor: none;
 }
 
 /* Navbar */
@@ -147,15 +148,20 @@ body {
 
 .headshot-wrapper {
   position: relative;
-  width: 350px;
-  height: 350px;
+  width: 380px;
+  height: 380px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid var(--card-border);
-  box-shadow: 0 0 60px var(--glow-color),
-              0 0 100px rgba(0, 255, 247, 0.2),
-              inset 0 0 40px rgba(0, 255, 247, 0.1);
+  border: 4px solid var(--card-border);
+  box-shadow: 0 0 80px var(--glow-color),
+              0 0 120px rgba(0, 255, 247, 0.3),
+              inset 0 0 50px rgba(0, 255, 247, 0.15);
   animation: float 6s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+
+.headshot-wrapper:hover {
+  transform: scale(1.05);
 }
 
 .headshot-glow {
@@ -204,24 +210,32 @@ body {
 
 .name-title {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(3.5rem, 9vw, 7rem);
   font-weight: 700;
-  line-height: 0.9;
+  line-height: 1.1;
   margin: 0;
-  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-cyan) 100%);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+.name-first,
+.name-last {
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-cyan) 50%, var(--accent-blue) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-}
-
-.name-line {
-  display: block;
+  display: inline-block;
   animation: slideIn 0.8s ease-out;
+  text-shadow: 0 0 40px rgba(0, 255, 247, 0.3);
 }
 
-.name-line:nth-child(2) {
+.name-last {
   animation-delay: 0.2s;
   animation-fill-mode: both;
+  font-size: 0.95em;
+  opacity: 0.95;
 }
 
 @keyframes slideIn {
@@ -250,9 +264,10 @@ body {
 }
 
 .hero-description p {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   color: var(--text-secondary);
-  line-height: 1.8;
+  line-height: 1.9;
+  font-weight: 300;
 }
 
 /* Section Styles */
@@ -290,15 +305,15 @@ body {
 
 /* Experience Card */
 .experience-card {
-  background: var(--card-bg);
+  background: linear-gradient(135deg, rgba(15, 22, 36, 0.8) 0%, rgba(10, 14, 26, 0.6) 100%);
   border: 1px solid var(--card-border);
-  border-radius: 20px;
-  padding: 3rem;
+  border-radius: 24px;
+  padding: 3.5rem;
   display: flex;
-  gap: 2rem;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  gap: 2.5rem;
+  backdrop-filter: blur(15px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
 }
 
 .experience-card:hover {
@@ -340,13 +355,13 @@ body {
 }
 
 .passion-card {
-  background: var(--card-bg);
+  background: linear-gradient(135deg, rgba(15, 22, 36, 0.8) 0%, rgba(10, 14, 26, 0.6) 100%);
   border: 1px solid var(--card-border);
-  border-radius: 20px;
-  padding: 2.5rem;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  border-radius: 24px;
+  padding: 3rem;
+  backdrop-filter: blur(15px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
   position: relative;
   overflow: hidden;
 }

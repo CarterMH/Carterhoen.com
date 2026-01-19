@@ -5,9 +5,9 @@ let height = window.innerHeight;
 canvas.width = width;
 canvas.height = height;
 
-// Refined tech lines and nodes for business aesthetic
+// Enhanced interactive background with stronger mouse effects
 const nodes = [];
-const NODE_COUNT = Math.floor((width * height) / 15000);
+const NODE_COUNT = Math.floor((width * height) / 12000);
 
 function randomColor() {
   const colors = [
@@ -35,16 +35,25 @@ function createNodes() {
 function draw() {
   ctx.clearRect(0, 0, width, height);
   
-  // Draw subtle connecting lines
+  // Draw connecting lines with mouse interaction enhancement
   for (let i = 0; i < nodes.length; i++) {
     for (let j = i+1; j < nodes.length; j++) {
       const dx = nodes[i].x - nodes[j].x;
       const dy = nodes[i].y - nodes[j].y;
       const dist = Math.sqrt(dx*dx + dy*dy);
-      if (dist < 150) {
-        const opacity = (1 - dist/150) * 0.15;
-        ctx.strokeStyle = `rgba(0, 255, 247, ${opacity})`;
-        ctx.lineWidth = 0.5;
+      if (dist < 180) {
+        let opacity = (1 - dist/180) * 0.2;
+        // Enhance lines near mouse
+        if (mouse) {
+          const midX = (nodes[i].x + nodes[j].x) / 2;
+          const midY = (nodes[i].y + nodes[j].y) / 2;
+          const mouseDist = Math.sqrt((midX - mouse.x)**2 + (midY - mouse.y)**2);
+          if (mouseDist < 200) {
+            opacity += (1 - mouseDist/200) * 0.3;
+          }
+        }
+        ctx.strokeStyle = `rgba(0, 255, 247, ${Math.min(opacity, 0.5)})`;
+        ctx.lineWidth = mouse && dist < 100 ? 1.5 : 0.8;
         ctx.beginPath();
         ctx.moveTo(nodes[i].x, nodes[i].y);
         ctx.lineTo(nodes[j].x, nodes[j].y);
@@ -53,13 +62,26 @@ function draw() {
     }
   }
   
-  // Draw nodes with subtle glow
+  // Draw nodes with enhanced glow near mouse
   for (const node of nodes) {
+    let glowIntensity = 1;
+    let nodeSize = node.r;
+    
+    if (mouse) {
+      const dx = node.x - mouse.x;
+      const dy = node.y - mouse.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 150) {
+        glowIntensity = 1 + (1 - dist/150) * 2;
+        nodeSize = node.r * (1 + (1 - dist/150) * 0.5);
+      }
+    }
+    
     ctx.beginPath();
-    ctx.arc(node.x, node.y, node.r, 0, Math.PI*2);
+    ctx.arc(node.x, node.y, nodeSize, 0, Math.PI*2);
     ctx.fillStyle = node.color;
     ctx.shadowColor = '#00fff7';
-    ctx.shadowBlur = 6;
+    ctx.shadowBlur = 8 * glowIntensity;
     ctx.fill();
     ctx.shadowBlur = 0;
   }
@@ -74,25 +96,32 @@ function animate(mouse) {
     if (node.x < 0 || node.x > width) node.vx *= -1;
     if (node.y < 0 || node.y > height) node.vy *= -1;
     
-    // Subtle mouse interaction
+    // Strong mouse interaction - bubbles move away from cursor
     if (mouse) {
       const dx = node.x - mouse.x;
       const dy = node.y - mouse.y;
       const dist = Math.sqrt(dx*dx + dy*dy);
-      if (dist < 120) {
-        node.vx += dx/dist * 0.15;
-        node.vy += dy/dist * 0.15;
+      if (dist < 200) {
+        const force = (1 - dist/200) * 0.8;
+        node.vx += (dx/dist) * force;
+        node.vy += (dy/dist) * force;
       }
     }
     
-    // Limit speed for smoother animation
-    node.vx = Math.max(-0.8, Math.min(0.8, node.vx));
-    node.vy = Math.max(-0.8, Math.min(0.8, node.vy));
+    // Apply friction
+    node.vx *= 0.98;
+    node.vy *= 0.98;
+    
+    // Limit speed
+    const maxSpeed = mouse ? 3 : 1.2;
+    node.vx = Math.max(-maxSpeed, Math.min(maxSpeed, node.vx));
+    node.vy = Math.max(-maxSpeed, Math.min(maxSpeed, node.vy));
   }
 }
 
 let mouse = null;
-canvas.addEventListener('mousemove', e => {
+// Track mouse on entire document for better interaction
+document.addEventListener('mousemove', e => {
   mouse = { x: e.clientX, y: e.clientY };
 });
 canvas.addEventListener('mouseleave', () => {
